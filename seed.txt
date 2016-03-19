@@ -1,6 +1,7 @@
 aggregator
 agile
 big data
+data mining
 cloud
 convergence
 html5
@@ -13,3 +14,4 @@ startup
 css3
 scalable
 scalability
+seo
