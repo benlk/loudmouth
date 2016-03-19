@@ -1,5 +1,5 @@
 # loudmouth
-An IRC bot written in node.JS that calls put people out when they use buzzWords
+An IRC bot written in node.JS that calls out people when they use buzzWords 
 
 ### Getting started
 
