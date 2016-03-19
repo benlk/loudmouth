@@ -53,7 +53,7 @@ fs.readFile(filePath, function(err, data) {
 client.addListener('message', function(from, to, text) {
 
   var found = false;
-  
+
   for (i = 0; i < buzzWords.length && !found; i++) {
     if (text.includes(buzzWords[i]) && buzzWords[i].length != 0) {
       client.say(channel, 'BUZZWORD');
@@ -72,6 +72,12 @@ client.addListener('message', function(from, to, text) {
         if (err) {
           return console.log(chalk.red(err));
         }
+
+        fs.readFile(filePath, function(err, data) {
+          if (err) throw err;
+          buzzWords = data.toString().split("\n");
+        });
+        
       });
 
       client.say(channel, '\'' + content + '\' added to buzzwords');
