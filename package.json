@@ -1,0 +1,22 @@
+{
+  "name": "loudmouth",
+  "private": true,
+  "version": "0.1.0",
+  "description": "An IRC bot written in node.JS that calls put people out when they use buzzWords",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egladman/herodotus.git"
+  },
+  "author": "Eli Gladman <eli.gladman@gmail.com> (http://eli.gladman.xyz)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/egladman/loudmouth/issues"
+  },
+  "homepage": "https://github.com/egladman/loudmouth#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "irc": "0.3.6",
+    "yargs": "^4.1.0"
+  }
+}
