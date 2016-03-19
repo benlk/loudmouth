@@ -11,6 +11,12 @@ var port, server, channel, nick;
 (argv.server) ? server = argv.server.toLowerCase(): server = 'irc.freenode.net';
 (argv.nick) ? nick = argv.nick.toLowerCase(): nick = 'loudmouth';
 
+if (argv.admin) {
+  admin = argv.admin.toLowerCase();
+} else {
+  return console.log('please specify an admin');
+}
+
 if (argv.channel) {
   channel = argv.channel.toLowerCase();
 } else {
@@ -55,13 +61,13 @@ client.addListener('message', function(from, to, text) {
   var found = false;
 
   for (i = 0; i < buzzWords.length && !found; i++) {
-    if (text.includes(buzzWords[i]) && buzzWords[i].length != 0) {
+    if (text.includes(buzzWords[i]) && buzzWords[i].length != 0 && !text.includes('.addbuzz')) {
       client.say(channel, 'BUZZWORD');
       found = true;
     }
   }
 
-  if (text.indexOf('.addbuzz') > -1) {
+  if (text.indexOf('.addbuzz') > -1 && from == admin) {
 
     var words = text.split(' ', 2);
     var content = words[words.length - 1];
@@ -77,7 +83,7 @@ client.addListener('message', function(from, to, text) {
           if (err) throw err;
           buzzWords = data.toString().split("\n");
         });
-        
+
       });
 
       client.say(channel, '\'' + content + '\' added to buzzwords');
