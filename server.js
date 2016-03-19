@@ -54,10 +54,14 @@ client.addListener('message', function(from, to, text) {
 
   var length = buzzWords.length;
 
+  var is_match = false;
+
   while(length--) {
-    if (text.indexOf(buzzWords[length])!=-1) {
+    if (text.indexOf(buzzWords[length])!=-1 && is_match == false) {
+      is_match = true;
        client.say(channel, 'BUZZWORD');
      }
+
   }
   // if (buzzWords.indexOf(text.toLowerCase()) !== -1) {
   //   client.say(channel, 'BUZZWORD');
