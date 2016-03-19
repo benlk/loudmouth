@@ -52,20 +52,14 @@ fs.readFile(filePath, function(err, data) {
 
 client.addListener('message', function(from, to, text) {
 
-  var length = buzzWords.length;
-
-  var is_match = false;
-
-  while(length--) {
-    if (text.indexOf(buzzWords[length])!=-1 && is_match == false) {
-      is_match = true;
-       client.say(channel, 'BUZZWORD');
-     }
-
+  var found = false;
+  
+  for (i = 0; i < buzzWords.length && !found; i++) {
+    if (text.includes(buzzWords[i]) && buzzWords[i].length != 0) {
+      client.say(channel, 'BUZZWORD');
+      found = true;
+    }
   }
-  // if (buzzWords.indexOf(text.toLowerCase()) !== -1) {
-  //   client.say(channel, 'BUZZWORD');
-  // }
 
   if (text.indexOf('.addbuzz') > -1) {
 
