@@ -52,9 +52,16 @@ fs.readFile(filePath, function(err, data) {
 
 client.addListener('message', function(from, to, text) {
 
-  if (buzzWords.indexOf(text.toLowerCase()) > -1) {
-    client.say(channel, 'BUZZWORD');
+  var length = buzzWords.length;
+
+  while(length--) {
+    if (text.indexOf(buzzWords[length])!=-1) {
+       client.say(channel, 'BUZZWORD');
+     }
   }
+  // if (buzzWords.indexOf(text.toLowerCase()) !== -1) {
+  //   client.say(channel, 'BUZZWORD');
+  // }
 
   if (text.indexOf('.addbuzz') > -1) {
 
