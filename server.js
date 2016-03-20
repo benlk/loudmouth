@@ -50,48 +50,41 @@ client.addListener('error', function(message) {
 
 var filePath = 'seed.txt';
 
-fs.readFile(filePath, function(err, data) {
-  if (err) throw err;
-  buzzWords = data.toString().split("\n");
-});
+function updateWords() {
+  fs.readFile(filePath, function(err, data) {
+    if (err) throw err;
+    buzzWords = data.toString().split("\n");
+  });
+}
 
+seedWords();
 
 client.addListener('message', function(from, to, text) {
 
   var found = false;
 
-  for (i = 0; i < buzzWords.length && !found; i++) {
-    if (text.includes(buzzWords[i]) && buzzWords[i].length != 0 && !text.includes('.addbuzz')) {
-      client.say(channel, 'BUZZWORD');
+  for (var i = 0; i < buzzWords.length && !found; i++) {
+    if ( text.includes(buzzWords[i]) ) {
+
+      if (text.slice(0,8) === '.addbuzz') return
+
       found = true;
+      client.say(channel, 'BUZZWORD');
     }
   }
 
-  if (text.indexOf('.addbuzz') > -1 && from == admin) {
 
-    var words = text.split(' ', 2);
-    var content = words[words.length - 1];
+  if (text.slice(0,8) === '.addbuzz' && from == admin) {
+    var len = text.length;
+    var words = text.slice(9, len).split(',');
 
-    if (buzzWords.indexOf(content) === -1) {
+    for (var i = 0; i < words.length; i++) {
+      fs.appendFile(filePath, '\n' + words[i].trim(), function(err) {
 
-      fs.appendFile(filePath, '\n' + content, function(err) {
-        if (err) {
-          return console.log(chalk.red(err));
-        }
-
-        fs.readFile(filePath, function(err, data) {
-          if (err) throw err;
-          buzzWords = data.toString().split("\n");
-        });
-
+        if (err) return console.log(err);
+        updateWords();
       });
-
-      client.say(channel, '\'' + content + '\' added to buzzwords');
-
-    } else {
-      client.say(channel, '\'' + content + '\' has already been added');
     }
-
   }
 
 });
