@@ -12,7 +12,7 @@ var port, server, channel, nick;
 (argv.nick) ? nick = argv.nick.toLowerCase(): nick = 'loudmouth';
 
 if (argv.admin) {
-  var admins = argv.admin.replace(' ', '').split(',');
+  var admins = argv.admin.toLowerCase().replace(' ', '').split(',');
 } else {
   return console.log('please specify admin(s)');
 }
