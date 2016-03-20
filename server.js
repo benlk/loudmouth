@@ -57,7 +57,7 @@ function updateWords() {
   });
 }
 
-seedWords();
+updateWords();
 
 client.addListener('message', function(from, to, text) {
 
@@ -69,7 +69,7 @@ client.addListener('message', function(from, to, text) {
       if (text.slice(0,8) === '.addbuzz') return
 
       found = true;
-      client.say(channel, 'BUZZWORD');
+      client.say(channel, from + ': BUZZWORD!');
     }
   }
 
