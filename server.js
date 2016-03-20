@@ -12,9 +12,9 @@ var port, server, channel, nick;
 (argv.nick) ? nick = argv.nick.toLowerCase(): nick = 'loudmouth';
 
 if (argv.admin) {
-  admin = argv.admin.toLowerCase();
+  var admins = argv.admin.replace(' ', '').split(',');
 } else {
-  return console.log('please specify an admin');
+  return console.log('please specify admin(s)');
 }
 
 if (argv.channel) {
@@ -86,8 +86,8 @@ client.addListener('message', function(from, to, text) {
 
   if (!wait) reply('BUZZWORD!');
 
-
-  if (text.slice(0,8) === '.addbuzz' && from == admin) {
+  console.log(admins)
+  if (text.slice(0,8) === '.addbuzz' && admins.indexOf(from) !== -1) {
     var len = text.length;
     var words = text.slice(9, len).split(',');
 
