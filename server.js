@@ -59,19 +59,32 @@ function updateWords() {
 
 updateWords();
 
+
+var wait = false;
+
 client.addListener('message', function(from, to, text) {
 
-  var found = false;
+  function reply(content){
+    var found = false;
 
-  for (var i = 0; i < buzzWords.length && !found; i++) {
-    if ( text.includes(buzzWords[i]) ) {
+    for (var i = 0; i < buzzWords.length && !found; i++) {
+      if ( text.includes(buzzWords[i]) ) {
 
-      if (text.slice(0,8) === '.addbuzz') return
+        if (text.slice(0,8) === '.addbuzz') return
 
-      found = true;
-      client.say(channel, from + ': BUZZWORD!');
+        found = true;
+        wait = true;
+        client.say(channel, from + ': ' + content);
+
+        setTimeout(function () {
+          wait = false;
+        }, 10000);
+
+      }
     }
   }
+
+  if (!wait) reply('BUZZWORD!');
 
 
   if (text.slice(0,8) === '.addbuzz' && from == admin) {
