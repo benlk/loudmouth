@@ -1,5 +1,5 @@
 # loudmouth
-An IRC bot written in node.JS that calls out people when they use buzzWords 
+An IRC bot written in node.JS that *yells* at people when they use buzzwords
 
 ### Getting started
 
@@ -16,13 +16,27 @@ npm install
 
 ##### Start
 
-There are **3 optional** and **1 required** parameters
+There are **3 optional** parameters and **2 required** parameters
+
+required
+  - admin
+  - channel
+
+
+optional
+  - nick
+  - server
+  - port
 
 
 ###### Example
 
 ```bash
-node server.js --nick='qux' --channel='#foo' --server='bar' --port=1234
+node server.js --channel='#foo' --admin='bar,baz'
+
+#OR
+
+node server.js --nick='qux' --channel='#foo' --server='bar' --port=1234 --admin='baz'
 ```
 
 ---
