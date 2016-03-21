@@ -6,7 +6,7 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/egladman/herodotus.git"
+    "url": "git+https://github.com/egladman/loudmouth.git"
   },
   "author": "Eli Gladman <eli.gladman@gmail.com> (http://eli.gladman.xyz)",
   "license": "GPL-3.0",
