@@ -4,15 +4,14 @@ var fs = require('fs');
 var argv = require('yargs').argv;
 const chalk = require('chalk');
 
-
-var port, server, channel, nick;
+var port, server, channel, nick, admins;
 
 (argv.port) ? port = argv.port: port = 6667;
 (argv.server) ? server = argv.server.toLowerCase(): server = 'irc.freenode.net';
 (argv.nick) ? nick = argv.nick.toLowerCase(): nick = 'loudmouth';
 
 if (argv.admin) {
-  var admins = argv.admin.toLowerCase().replace(' ', '').split(',');
+  admins = argv.admin.toLowerCase().replace(' ', '').split(',');
 } else {
   return console.log('please specify admin(s)');
 }
@@ -22,7 +21,6 @@ if (argv.channel) {
 } else {
   return console.log('please specify a channel');
 }
-
 
 var client = new irc.Client(server, nick, {
   autoRejoin: true,
@@ -40,6 +38,7 @@ client.connect(5, function(input) {
   client.join(channel, function(input) {
     console.log(chalk.green('Joined ' + channel));
   });
+  
 });
 
 
@@ -57,21 +56,19 @@ function updateWords() {
   });
 }
 
+
+var wait = false;
 updateWords();
 
 
-var wait = false;
-
 client.addListener('message', function(from, to, text) {
-
+  
   function reply(content){
     var found = false;
 
     for (var i = 0; i < buzzWords.length && !found; i++) {
       if ( text.indexOf(buzzWords[i]) > -1 ) {
-
         if (text.startsWith('.addbuzz')) return
-
         found = true;
         wait = true;
         client.say(channel, from + ': ' + content);
@@ -82,14 +79,13 @@ client.addListener('message', function(from, to, text) {
 
       }
     }
+    
   }
 
   if (!wait) reply('BUZZWORD!');
-
-
+  
   if (text.startsWith('.addbuzz') && admins.indexOf(from) > -1) {
-    var len = text.length;
-    var words = text.slice(9, len).split(',');
+    var words = text.slice(9, text.length).split(',');
 
     for (var i = 0; i < words.length; i++) {
       fs.appendFile(filePath, '\n' + words[i].trim(), function(err) {
@@ -98,6 +94,7 @@ client.addListener('message', function(from, to, text) {
         updateWords();
       });
     }
+    
   }
 
 });
