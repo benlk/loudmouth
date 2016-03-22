@@ -94,8 +94,9 @@ client.addListener('message', function(from, to, text) {
     for (var i = 0; i < words.length; i++) {
       fs.appendFile(filePath, '\n' + words[i].trim(), function(err) {
 
-        if (err) return console.log(err);
+        if (err) return console.error('write error: ' + err);
         updateWords();
+
       });
     }
   }
