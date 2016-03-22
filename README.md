@@ -51,6 +51,15 @@ nick: `loudmouth`
 
 ---
 
+##### Admin Commands
+
+add `foo` to the list of buzzwords
+```
+.addbuzz foo
+```
+
+---
+
 Tested on node `v4.2.6`
 
 Contributions and/or feature requests are welcomed. Feel free to report issues.
