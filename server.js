@@ -87,7 +87,7 @@ client.addListener('message', function(from, to, text) {
   if (!wait) reply('BUZZWORD!');
 
 
-  if (text.startsWith('.addbuzz') && admins.indexOf(from) !== -1) {
+  if (text.startsWith('.addbuzz') && admins.indexOf(from) > -1) {
     var len = text.length;
     var words = text.slice(9, len).split(',');
 
