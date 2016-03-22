@@ -68,9 +68,9 @@ client.addListener('message', function(from, to, text) {
     var found = false;
 
     for (var i = 0; i < buzzWords.length && !found; i++) {
-      if ( text.includes(buzzWords[i]) ) {
+      if ( text.indexOf(buzzWords[i]) > -1 ) {
 
-        if (text.slice(0,8) === '.addbuzz') return
+        if (text.startsWith('.addbuzz')) return
 
         found = true;
         wait = true;
@@ -87,7 +87,7 @@ client.addListener('message', function(from, to, text) {
   if (!wait) reply('BUZZWORD!');
 
 
-  if (text.slice(0,8) === '.addbuzz' && admins.indexOf(from) !== -1) {
+  if (text.startsWith('.addbuzz') && admins.indexOf(from) !== -1) {
     var len = text.length;
     var words = text.slice(9, len).split(',');
 
